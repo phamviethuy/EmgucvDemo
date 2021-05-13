@@ -177,7 +177,7 @@ namespace EmgucvDemo
                 InpaintPoints.Add(InpaintCurrentPoints.ToList());
                 InpaintCurrentPoints.Clear();
             }
-            
+
             if(Selecting)
             {
                 Selecting = false;
@@ -189,6 +189,7 @@ namespace EmgucvDemo
         {
             try
             {
+                rect = new Rectangle(840, 0, 1000, 1080);
                 if (pictureBox1.Image == null)
                     return;
 
@@ -429,7 +430,7 @@ namespace EmgucvDemo
 
         private void featureMatchingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private static VectorOfPoint ProcessImage(Image<Gray,byte> template, Image<Gray, byte> sceneImage)
@@ -935,7 +936,7 @@ namespace EmgucvDemo
                 CvInvoke.MatchTemplate(imgScene, template, imgOut, Emgu.CV.CvEnum.TemplateMatchingType.Sqdiff);
 
                 Mat imgOutNorm = new Mat();
-        
+
                 CvInvoke.Normalize(imgOut, imgOutNorm, 0, 1, Emgu.CV.CvEnum.NormType.MinMax, Emgu.CV.CvEnum.DepthType.Cv64F);
 
                 Matrix<double> matches = new Matrix<double>(imgOutNorm.Size);
@@ -1046,10 +1047,10 @@ namespace EmgucvDemo
 
                         gray.ROI = Rectangle.Empty;
                         mask.ROI = Rectangle.Empty;
-                        
+
 
                         int diff = Math.Abs(grayNonZero[0] - maskNonZero[0]);
-                        
+
 
                         if (diff<=threshold)
                         {
@@ -1148,7 +1149,7 @@ namespace EmgucvDemo
                 viewer.HistogramCtrl.Refresh();
                 viewer.Show();
 
-                // sroting the histogram 
+                // sroting the histogram
                 var array = hist.GetData();
                 var list = array.Cast<Single>().Select(c => (int)c).ToArray();
                 var dictionary = list.Select((v, j) => new { Key = j, Value = v })
@@ -1257,7 +1258,7 @@ namespace EmgucvDemo
 
         private void backpropagationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void watershedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1500,7 +1501,7 @@ namespace EmgucvDemo
 
         private void ımageInpaintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void applyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1617,7 +1618,7 @@ namespace EmgucvDemo
 
                 // ocr part
 
-                string datapath = @"F:\AJ Data\Data\traineddata.eng\";
+                string datapath = @"C:\tessdata\traineddata.eng\";
                 Tesseract ocr = new Tesseract(datapath, "eng", OcrEngineMode.TesseractOnly);
                 ocr.PageSegMode = PageSegMode.SingleBlock;
 
@@ -1795,7 +1796,7 @@ namespace EmgucvDemo
                         lblStatus.Text = "Model could not be trained.";
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -2024,7 +2025,7 @@ namespace EmgucvDemo
             }
         }
 
-        private (Matrix<float>, Matrix<int>) CalculateHoGFeatures(List<FaceData> data) 
+        private (Matrix<float>, Matrix<int>) CalculateHoGFeatures(List<FaceData> data)
         {
             try
             {
@@ -2097,7 +2098,7 @@ namespace EmgucvDemo
                     }
 
                 }
-                
+
 
 
             }
@@ -2440,6 +2441,11 @@ namespace EmgucvDemo
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void table2TextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)

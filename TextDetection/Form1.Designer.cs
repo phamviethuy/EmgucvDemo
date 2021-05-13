@@ -40,6 +40,8 @@ namespace TextDetection
             this.btnDetectShape = new System.Windows.Forms.Button();
             this.btnFindContours = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.tbThres = new System.Windows.Forms.TextBox();
+            this.tbMaxValue = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -134,11 +136,29 @@ namespace TextDetection
             this.richTextBox1.TabIndex = 9;
             this.richTextBox1.Text = "";
             // 
+            // tbThres
+            // 
+            this.tbThres.Location = new System.Drawing.Point(15, 461);
+            this.tbThres.Name = "tbThres";
+            this.tbThres.Size = new System.Drawing.Size(78, 20);
+            this.tbThres.TabIndex = 10;
+            this.tbThres.Text = "100";
+            // 
+            // tbMaxValue
+            // 
+            this.tbMaxValue.Location = new System.Drawing.Point(129, 461);
+            this.tbMaxValue.Name = "tbMaxValue";
+            this.tbMaxValue.Size = new System.Drawing.Size(78, 20);
+            this.tbMaxValue.TabIndex = 10;
+            this.tbMaxValue.Text = "255";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1649, 610);
+            this.Controls.Add(this.tbMaxValue);
+            this.Controls.Add(this.tbThres);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnFindContours);
             this.Controls.Add(this.btnDetectShape);
@@ -169,6 +189,8 @@ namespace TextDetection
         private System.Windows.Forms.Button btnDetectShape;
         private System.Windows.Forms.Button btnFindContours;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TextBox tbThres;
+        private System.Windows.Forms.TextBox tbMaxValue;
     }
 }
 

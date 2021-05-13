@@ -26,7 +26,7 @@ namespace TextDetection
             InitializeComponent();
             capture = new VideoCapture();
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\";
-            ocr = new Tesseract(path, "eng", OcrEngineMode.Default);
+            ocr = new Tesseract(path, "eng", OcrEngineMode.TesseractOnly);
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -71,7 +71,7 @@ namespace TextDetection
                     if (!m.IsEmpty)
                     {
                         pictureBox1.Image = m.ToBitmap();
-                        DetectText(m.ToImage<Bgr, byte>());
+                        DetectText(m);
                         double fps = capture.GetCaptureProperty(CapProp.Fps);
 
                         m.Dispose();
@@ -85,67 +85,29 @@ namespace TextDetection
             }
         }
 
-        private void DetectText(Image<Bgr, byte> img)
+        private void DetectText(Mat mat)
         {
-            ocr.SetImage(img);
-            ocr.Recognize();
-            //var result = ocr.GetCharacters().GroupBy(c => c.Region);
-            //foreach (var item in result)
-            //{
-            //    var text = string.Join("", item.Select(i=> i.Text));
-            //    richTextBox1.AppendText(text);
-            //    richTextBox1.AppendText("\r\n");
-            //}
+            mat = new Mat(@"C:\Users\Huy\Pictures\Camera Roll\version.jpg");
 
-            var result = ocr.GetUTF8Text();
-            richTextBox1.Text = result;
-            /*
-             1. Edge detection (sobel)
-             2. Dilation (10,1)
-             3. FindContours
-             4. Geometrical Constrints
-             */
-            //sobel
-            Image<Gray, byte> sobel = img.Convert<Gray, byte>().Sobel(1, 0, 3).AbsDiff(new Gray(0.0)).Convert<Gray, byte>().ThresholdBinary(new Gray(50), new Gray(255));
-            Mat SE = CvInvoke.GetStructuringElement(ElementShape.Rectangle, new Size(10, 2), new Point(-1, -1));
-            sobel = sobel.MorphologyEx(MorphOp.Dilate, SE, new Point(-1, -1), 1, BorderType.Reflect, new MCvScalar(255));
-            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
-            Mat m = new Mat();
+            var firstVersion = new Mat(mat, new Rectangle(0, 0, 840, 1080)).ToImage<Gray, byte>().ThresholdBinary(new Gray(140), new Gray(150));
+            var secondVersion = new Mat(mat, new Rectangle(840, 0, 1000, 1080)).ToImage<Gray, byte>().ThresholdBinary(new Gray(119), new Gray(150));
 
-            CvInvoke.FindContours(sobel, contours, m, RetrType.External, ChainApproxMethod.ChainApproxSimple);
-
-            List<Rectangle> list = new List<Rectangle>();
-
-            for (int i = 0; i < contours.Size; i++)
-            {
-                Rectangle brect = CvInvoke.BoundingRectangle(contours[i]);
-
-                double ar = brect.Width / brect.Height;
-                if (ar > 2 && brect.Width > 25 && brect.Height > 8 && brect.Height < 100)
-                {
-                    list.Add(brect);
-                }
-            }
-
-
-            Image<Bgr, byte> imgout = img.CopyBlank();
-            foreach (var r in list)
-            {
-                CvInvoke.Rectangle(img, r, new MCvScalar(0, 0, 255), 2);
-                CvInvoke.Rectangle(imgout, r, new MCvScalar(0, 255, 255), -1);
-            }
-
-            imgout._And(img);
-            pictureBox1.Image = img.ToBitmap();
-            pictureBox2.Image = imgout.ToBitmap();
+            ExtractTextFromImage(firstVersion);
+            ExtractTextFromImage(secondVersion);
 
         }
 
-
+        void ExtractTextFromImage(IInputArray img)
+        {
+            ocr.SetImage(img);
+            ocr.Recognize();
+            var result = ocr.GetUTF8Text();
+            richTextBox1.AppendText(result);
+        }
 
         private void btnDetect_Click(object sender, EventArgs e)
         {
-            DetectText(new Image<Bgr, byte>(filePath));
+            DetectText(new Mat(filePath));
         }
 
         private void btnDetectShape_Click(object sender, EventArgs e)
@@ -187,7 +149,7 @@ namespace TextDetection
                     if (approx.Size == 4)
                     {
                         var con = contours[i];
-                        if (con.Size <9)
+                        if (con.Size < 9)
                         {
                             Rectangle rect = CvInvoke.BoundingRectangle(contours[i]);
                             double ar = (double)rect.Width / rect.Height;
