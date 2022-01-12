@@ -53,7 +53,7 @@ namespace TextDetection
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1649, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1904, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -82,9 +82,9 @@ namespace TextDetection
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(392, 40);
+            this.pictureBox2.Location = new System.Drawing.Point(897, 40);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(985, 501);
+            this.pictureBox2.Size = new System.Drawing.Size(725, 829);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
@@ -93,14 +93,14 @@ namespace TextDetection
             // 
             this.pictureBox1.Location = new System.Drawing.Point(12, 40);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(357, 341);
+            this.pictureBox1.Size = new System.Drawing.Size(879, 840);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
             // btnDetect
             // 
-            this.btnDetect.Location = new System.Drawing.Point(12, 411);
+            this.btnDetect.Location = new System.Drawing.Point(12, 886);
             this.btnDetect.Name = "btnDetect";
             this.btnDetect.Size = new System.Drawing.Size(75, 23);
             this.btnDetect.TabIndex = 7;
@@ -110,7 +110,7 @@ namespace TextDetection
             // 
             // btnDetectShape
             // 
-            this.btnDetectShape.Location = new System.Drawing.Point(93, 411);
+            this.btnDetectShape.Location = new System.Drawing.Point(93, 886);
             this.btnDetectShape.Name = "btnDetectShape";
             this.btnDetectShape.Size = new System.Drawing.Size(75, 23);
             this.btnDetectShape.TabIndex = 7;
@@ -120,7 +120,7 @@ namespace TextDetection
             // 
             // btnFindContours
             // 
-            this.btnFindContours.Location = new System.Drawing.Point(194, 411);
+            this.btnFindContours.Location = new System.Drawing.Point(194, 886);
             this.btnFindContours.Name = "btnFindContours";
             this.btnFindContours.Size = new System.Drawing.Size(75, 23);
             this.btnFindContours.TabIndex = 8;
@@ -130,7 +130,7 @@ namespace TextDetection
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(1383, 40);
+            this.richTextBox1.Location = new System.Drawing.Point(1638, 368);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(254, 501);
             this.richTextBox1.TabIndex = 9;
@@ -138,7 +138,7 @@ namespace TextDetection
             // 
             // tbThres
             // 
-            this.tbThres.Location = new System.Drawing.Point(15, 461);
+            this.tbThres.Location = new System.Drawing.Point(15, 936);
             this.tbThres.Name = "tbThres";
             this.tbThres.Size = new System.Drawing.Size(78, 20);
             this.tbThres.TabIndex = 10;
@@ -146,7 +146,7 @@ namespace TextDetection
             // 
             // tbMaxValue
             // 
-            this.tbMaxValue.Location = new System.Drawing.Point(129, 461);
+            this.tbMaxValue.Location = new System.Drawing.Point(129, 936);
             this.tbMaxValue.Name = "tbMaxValue";
             this.tbMaxValue.Size = new System.Drawing.Size(78, 20);
             this.tbMaxValue.TabIndex = 10;
@@ -156,7 +156,7 @@ namespace TextDetection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1649, 610);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.tbMaxValue);
             this.Controls.Add(this.tbThres);
             this.Controls.Add(this.richTextBox1);

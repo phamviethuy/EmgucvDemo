@@ -26,7 +26,7 @@ namespace TextDetection
             InitializeComponent();
             capture = new VideoCapture();
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\";
-            ocr = new Tesseract(path, "eng", OcrEngineMode.TesseractOnly);
+            ocr = new Tesseract(path, "eng+train1+train2+train3", OcrEngineMode.TesseractOnly);
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -87,11 +87,13 @@ namespace TextDetection
 
         private void DetectText(Mat mat)
         {
-            mat = new Mat(@"C:\Users\Huy\Pictures\Camera Roll\version.jpg");
+            var thres = int.Parse(tbThres.Text);
+            var max = int.Parse(tbMaxValue.Text);
 
-            var firstVersion = new Mat(mat, new Rectangle(0, 0, 840, 1080)).ToImage<Gray, byte>().ThresholdBinary(new Gray(140), new Gray(150));
-            var secondVersion = new Mat(mat, new Rectangle(840, 0, 1000, 1080)).ToImage<Gray, byte>().ThresholdBinary(new Gray(119), new Gray(150));
-
+            var firstVersion = new Mat(mat, new Rectangle(0, 0, 940, 1080));
+            var secondVersion = new Mat(mat, new Rectangle(940, 0, 1920 - 940, 1080));
+            pictureBox1.Image = firstVersion.ToBitmap();
+            pictureBox2.Image = secondVersion.ToBitmap();
             ExtractTextFromImage(firstVersion);
             ExtractTextFromImage(secondVersion);
 
