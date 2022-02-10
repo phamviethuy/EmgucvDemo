@@ -84,27 +84,35 @@ namespace TextDetection
                 MessageBox.Show(ex.Message);
             }
         }
-
+        List<string> results = new List<string>();
         private void DetectText(Mat mat)
         {
             var thres = int.Parse(tbThres.Text);
             var max = int.Parse(tbMaxValue.Text);
 
-            var firstVersion = new Mat(mat, new Rectangle(0, 0, 940, 1080));
-            var secondVersion = new Mat(mat, new Rectangle(940, 0, 1920 - 940, 1080));
+            var firstVersion = new Mat(mat, new Rectangle(0, 0, 840, 1080)).ToImage<Gray, byte>().ThresholdBinaryInv(new Gray(thres), new Gray(max)); ;
+            var secondVersion = new Mat(mat, new Rectangle(840, 0, 1000, 1080)).ToImage<Gray, byte>().ThresholdBinary(new Gray(100), new Gray(255)); ; ;
             pictureBox1.Image = firstVersion.ToBitmap();
             pictureBox2.Image = secondVersion.ToBitmap();
-            ExtractTextFromImage(firstVersion);
-            ExtractTextFromImage(secondVersion);
+            var result = string.Empty;
+            result += ExtractTextFromImage(firstVersion);
+            result += ExtractTextFromImage(secondVersion);
+
+            if(results.Any(r=> r != result))
+            {
+                MessageBox.Show("Kết quả khác");
+            }
 
         }
 
-        void ExtractTextFromImage(IInputArray img)
+        string ExtractTextFromImage(IInputArray img)
         {
             ocr.SetImage(img);
             ocr.Recognize();
             var result = ocr.GetUTF8Text();
             richTextBox1.AppendText(result);
+            richTextBox1.ScrollToCaret();
+            return result;
         }
 
         private void btnDetect_Click(object sender, EventArgs e)
